@@ -9,6 +9,7 @@ import controller.CCliente;
 import controller.CEditora;
 import controller.CLivro;
 import controller.CVendaLivro;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import util.Validadores;
@@ -17,6 +18,8 @@ import model.Cliente;
 import model.Editora;
 import model.Livro;
 import model.VendaLivro;
+import services.ClienteServicos;
+import services.ServicosFactory;
 
 /**
  *
@@ -93,7 +96,8 @@ public class INF3M212LivrariaPOO {
         String cnpj = null;
         String endereco;
         String telefone;
-
+        ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+        
         System.out.println("-- Cadastro de Cliente --");
         System.out.print("Informe o CPF: ");
         boolean cpfIs;
@@ -113,11 +117,11 @@ public class INF3M212LivrariaPOO {
                 }
             }
         } while (!cpfIs);
-        if (cadCliente.getClienteCPF(cpf) != null) {
+        if (clienteS.buscarClientebyCPF(cpf).getCpf()!=null) {
             System.out.println("Cliente já cadastrado!");
         } else {
             System.out.print("Informe o nome: ");
-            nomeCliente = leia.nextLine().toUpperCase(); 
+            nomeCliente = leia.nextLine().toUpperCase();
             System.out.print("Informe o telefone: ");
             telefone = leia.nextLine();
             System.out.print("Informe o endereço: ");
@@ -125,7 +129,9 @@ public class INF3M212LivrariaPOO {
             idCliente = cadCliente.geraID();
             Cliente cli = new Cliente(idCliente, nomeCliente, cpf,
                     cnpj, endereco, telefone);
-            cadCliente.addCliente(cli);
+            
+            clienteS.cadCliente(cli);
+            //cadCliente.addCliente(cli);
             System.out.println("Cliente cadastrado com sucesso!");
         }
     }//fim cadastrarCliente
@@ -134,10 +140,12 @@ public class INF3M212LivrariaPOO {
         System.out.println("-- Deletar Cliente --");
         System.out.print("Informe o cpf: ");
         String cpf = leia.nextLine();
+        ClienteServicos clienteS = ServicosFactory.getClienteServicos();
         if (Validadores.isCPF(cpf)) {
-            Cliente cli = cadCliente.getClienteCPF(cpf);
+            Cliente cli = clienteS.buscarClientebyCPF(cpf);
             if (cli != null) {
-                cadCliente.removeCliente(cli);
+                //cadCliente.removeCliente(cli);
+                clienteS.deletarCliente(cpf);
                 System.out.println("Cliente deletado com sucesso!");
             } else {
                 System.out.println("Cliente não consta na base de dados!");
@@ -150,7 +158,7 @@ public class INF3M212LivrariaPOO {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         // TODO code application logic here
         cadCliente.mockClientes();
         cadEditora.mockEditoras();
@@ -236,7 +244,8 @@ public class INF3M212LivrariaPOO {
     }
 
     private static void listarClientes() {
-        for (Cliente cli : cadCliente.getClientes()) {
+        ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+        for (Cliente cli : clienteS.getClientes()) {
             System.out.println("---");
             System.out.println("CPF:\t" + cli.getCpf());
             System.out.println("Nome:\t" + cli.getNomeCliente());
@@ -274,6 +283,8 @@ public class INF3M212LivrariaPOO {
                 if (opEditar < 1 || opEditar > 4) {
                     System.out.println("Opção inválida!");
                 }
+                ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+                clienteS.atualizarCliente(cli);
                 /*
                 switch (opEditar) {
                     case 1:

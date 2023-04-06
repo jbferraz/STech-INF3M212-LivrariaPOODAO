@@ -7,6 +7,7 @@ package services;
 
 import dao.ClienteDAO;
 import dao.DAOFactory;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Cliente;
 
@@ -36,7 +37,7 @@ public class ClienteServicos {
         return cDAO.getClienteByDoc(cpf);
     }
     
-    public ArrayList<Cliente> getClientes(){
+    public ArrayList<Cliente> getClientes() {
         ClienteDAO cDAO = DAOFactory.getClienteDAO();
         return cDAO.getClientesDAO();
     }
