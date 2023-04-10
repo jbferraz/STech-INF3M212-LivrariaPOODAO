@@ -19,6 +19,7 @@ import model.Editora;
 import model.Livro;
 import model.VendaLivro;
 import services.ClienteServicos;
+import services.EditoraServicos;
 import services.ServicosFactory;
 
 /**
@@ -97,7 +98,7 @@ public class INF3M212LivrariaPOO {
         String endereco;
         String telefone;
         ClienteServicos clienteS = ServicosFactory.getClienteServicos();
-        
+
         System.out.println("-- Cadastro de Cliente --");
         System.out.print("Informe o CPF: ");
         boolean cpfIs;
@@ -117,7 +118,7 @@ public class INF3M212LivrariaPOO {
                 }
             }
         } while (!cpfIs);
-        if (clienteS.buscarClientebyCPF(cpf).getCpf()!=null) {
+        if (clienteS.buscarClientebyCPF(cpf).getCpf() != null) {
             System.out.println("Cliente já cadastrado!");
         } else {
             System.out.print("Informe o nome: ");
@@ -129,7 +130,7 @@ public class INF3M212LivrariaPOO {
             idCliente = cadCliente.geraID();
             Cliente cli = new Cliente(idCliente, nomeCliente, cpf,
                     cnpj, endereco, telefone);
-            
+
             clienteS.cadCliente(cli);
             //cadCliente.addCliente(cli);
             System.out.println("Cliente cadastrado com sucesso!");
@@ -329,6 +330,7 @@ public class INF3M212LivrariaPOO {
         String endereco;
         String telefone;
         String gerente;
+        EditoraServicos editoraS = ServicosFactory.getEditoraServicos();
 
         System.out.println("-- Cadastrar Editora --");
         System.out.print("Informe o CNPJ da Editora: ");
@@ -351,7 +353,7 @@ public class INF3M212LivrariaPOO {
 
         } while (!cnpjis);
 
-        if (cadEditora.getEditoraCNPJ(cnpj) != null) {
+        if (editoraS.buscarEditorabyCNPJ(cnpj).getCnpj() != null) {
             System.out.println("Editora já cadastrada!");
         } else {
             System.out.print("Informe o nome da editora: ");
@@ -365,18 +367,20 @@ public class INF3M212LivrariaPOO {
             idEditora = cadEditora.geraID();
 
             Editora edi = new Editora(idEditora, nmEditora, cnpj, endereco, telefone, gerente);
-            cadEditora.addEditora(edi);
+            //cadEditora.addEditora(edi);
+            editoraS.cadEditora(edi);
             System.out.println("Editora cadastrada com sucesso!");
         }
     }//fim do cadastrarEditora
 
     private static void editarEditora() {
+        EditoraServicos editoraS = ServicosFactory.getEditoraServicos();
         System.out.println("-- Editar Editora --");
         System.out.print("Informe o CNPJ: ");
         String cnpj = leia.nextLine();
         if (Validadores.isCNPJ(cnpj)) {
-            Editora edi = cadEditora.getEditoraCNPJ(cnpj);
-            if (edi != null) {
+            Editora edi = editoraS.buscarEditorabyCNPJ(cnpj);
+            if (edi.getCnpj() != null) {
                 System.out.println("1 - Nome:\t" + edi.getNmEditora());
                 System.out.println("2 - Endereço:\t" + edi.getEndereco());
                 System.out.println("3 - Fone:\t" + edi.getTelefone());
@@ -409,6 +413,7 @@ public class INF3M212LivrariaPOO {
                         System.out.println("Opção inválida!");
                         break;
                 }
+                editoraS.atualizarEditora(edi);
                 System.out.println("Editora:\n" + edi.toString());
             } else {
                 System.out.println("Editora já cadastrado!");
@@ -419,25 +424,31 @@ public class INF3M212LivrariaPOO {
     }//fim do editarEditora
 
     public static void listarEditora() {
+        EditoraServicos editoraS = ServicosFactory.getEditoraServicos();
+        if (editoraS.getEditoras().isEmpty()) {
+            System.out.println("Não existem Editoras cadastradas!");
+        } else {
+            for (Editora edi : editoraS.getEditoras()) {
+                System.out.println("----");
+                System.out.println("CNPJ:\t" + edi.getCnpj());
+                System.out.println("Nome:\t" + edi.getNmEditora());
+                System.out.println("Fone:\t" + edi.getTelefone());
+            }
 
-        for (Editora edi : cadEditora.getEditoras()) {
-            System.out.println("----");
-            System.out.println("CNPJ:\t" + edi.getCnpj());
-            System.out.println("Nome:\t" + edi.getNmEditora());
-            System.out.println("Fone:\t" + edi.getTelefone());
         }
-
     }//fim listarCliente
 
     public static void deletarEditora() {
+        EditoraServicos editoraS = ServicosFactory.getEditoraServicos();
         System.out.println("-- Deletar Editora --");
         System.out.print("Informe o CNPJ: ");
         String cnpj = leia.nextLine();
 
         if (Validadores.isCNPJ(cnpj)) {
-            Editora edi = cadEditora.getEditoraCNPJ(cnpj);
+            Editora edi = editoraS.buscarEditorabyCNPJ(cnpj);
             if (edi != null) {
-                cadEditora.removeEditora(edi);
+                //cadEditora.removeEditora(edi);
+                editoraS.deletarEditora(cnpj);
                 System.out.println("Editora deletada com sucesso!");
             } else {
                 System.out.println("Editora não consta na base de dados!");

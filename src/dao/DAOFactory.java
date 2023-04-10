@@ -10,9 +10,15 @@ package dao;
  * @author jbferraz
  */
 public class DAOFactory {
+
     private static ClienteDAO cDAO = new ClienteDAO();
-    
-    public static ClienteDAO getClienteDAO(){
+    private static EditoraDAO eDAO = new EditoraDAO();
+
+    public static ClienteDAO getClienteDAO() {
         return cDAO;
+    }
+
+    public static EditoraDAO getEditoraDAO() {
+        return eDAO;
     }
 }

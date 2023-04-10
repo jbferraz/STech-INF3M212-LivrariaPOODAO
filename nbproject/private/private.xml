@@ -5,6 +5,12 @@
         <group>
             <file>file:/C:/Users/jbferraz/Documents/NetBeansProjects/INF3M212-LivrariaPOO-BD/src/dao/ClienteDAO.java</file>
             <file>file:/C:/Users/jbferraz/Documents/NetBeansProjects/INF3M212-LivrariaPOO-BD/src/conexao/Conexao.java</file>
+            <file>file:/C:/Users/jbferraz/Documents/NetBeansProjects/INF3M212-LivrariaPOO-BD/src/model/Cliente.java</file>
+            <file>file:/C:/Users/jbferraz/Documents/NetBeansProjects/INF3M212-LivrariaPOO-BD/src/services/ServicosFactory.java</file>
+            <file>file:/C:/Users/jbferraz/Documents/NetBeansProjects/INF3M212-LivrariaPOO-BD/src/inf3m212/livrariapoo/INF3M212LivrariaPOO.java</file>
+            <file>file:/C:/Users/jbferraz/Documents/NetBeansProjects/INF3M212-LivrariaPOO-BD/src/services/ClienteServicos.java</file>
+            <file>file:/C:/Users/jbferraz/Documents/NetBeansProjects/INF3M212-LivrariaPOO-BD/src/controller/CVendaLivro.java</file>
+            <file>file:/C:/Users/jbferraz/Documents/NetBeansProjects/INF3M212-LivrariaPOO-BD/src/dao/DAOFactory.java</file>
         </group>
     </open-files>
 </project-private>

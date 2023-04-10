@@ -16,10 +16,12 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `livraria`.`editoras` (
   `ideditora` INT NOT NULL AUTO_INCREMENT,
   `nomeEditora` VARCHAR(45) NOT NULL,
+  `cnpj` VARCHAR(18) NOT NULL,
   `endereco` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(45) NULL,
   `gerente` VARCHAR(45) NULL,
-  PRIMARY KEY (`ideditora`))
+  PRIMARY KEY (`ideditora`),
+  UNIQUE INDEX `cnpj_UNIQUE` (`cnpj` ASC)  ))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `livraria`.`pedidos` (
