@@ -390,11 +390,11 @@ public class INF3M212LivrariaPOO {
                 switch (opEditar) {
                     case 1:
                         System.out.print("Informe o nome: ");
-                        edi.setNmEditora(leia.nextLine());
+                        edi.setNmEditora(leia.nextLine().toUpperCase());
                         break;
                     case 2:
                         System.out.print("Informe o endereço: ");
-                        edi.setEndereco(leia.nextLine());
+                        edi.setEndereco(leia.nextLine().toUpperCase());
                         break;
                     case 3:
                         System.out.println("Informe o fone: ");
@@ -403,9 +403,9 @@ public class INF3M212LivrariaPOO {
                     case 4:
                         System.out.println("Informe todos os campos abaixo:");
                         System.out.print("Informe o nome: ");
-                        edi.setNmEditora(leia.nextLine());
+                        edi.setNmEditora(leia.nextLine().toUpperCase());
                         System.out.print("Informe o endereço: ");
-                        edi.setEndereco(leia.nextLine());
+                        edi.setEndereco(leia.nextLine().toUpperCase());
                         System.out.print("Informe o fone: ");
                         edi.setTelefone(leia.nextLine());
                         break;
