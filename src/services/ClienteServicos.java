@@ -32,7 +32,7 @@ public class ClienteServicos {
         cDAO.deletarClienteDAO(cpf);
     }
     
-    public Cliente buscarClientebyCPF(String cpf){
+    public Cliente buscarClienteByCPF(String cpf){
         ClienteDAO cDAO = DAOFactory.getClienteDAO();
         return cDAO.getClienteByDoc(cpf);
     }
